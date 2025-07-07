@@ -55,22 +55,14 @@ const config: HardhatUserConfig = {
         ],
     },
     networks: {
-        'optimism-testnet': {
-            eid: EndpointId.OPTSEP_V2_TESTNET,
-            url: process.env.RPC_URL_OP_SEPOLIA || 'https://optimism-sepolia.gateway.tenderly.co',
-            accounts,
-            oftAdapter: {
-                tokenAddress: '0x0', // Set the token address for the OFT adapter
-            },
-        },
-        'avalanche-testnet': {
-            eid: EndpointId.AVALANCHE_V2_TESTNET,
-            url: process.env.RPC_URL_FUJI || 'https://avalanche-fuji.drpc.org',
+        'ethereum-mainnet': {
+            eid: EndpointId.ETHEREUM_V2_MAINNET,
+            url: process.env.RPC_URL_ETH_MAINNET || 'https://mainnet.infura.io/v3/f013f7fdf1fe4e35a71f61b0ca46c5f8',
             accounts,
         },
-        'arbitrum-testnet': {
-            eid: EndpointId.ARBSEP_V2_TESTNET,
-            url: process.env.RPC_URL_ARB_SEPOLIA || 'https://arbitrum-sepolia.gateway.tenderly.co',
+        'polygon-mainnet': {
+            eid: EndpointId.POLYGON_V2_MAINNET,
+            url: process.env.RPC_URL_POL_MAINNET || 'https://polygon-mainnet.infura.io/v3/f013f7fdf1fe4e35a71f61b0ca46c5f8',
             accounts,
         },
         hardhat: {

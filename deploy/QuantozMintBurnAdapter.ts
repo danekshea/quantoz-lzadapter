@@ -2,7 +2,7 @@ import assert from 'assert'
 
 import { type DeployFunction } from 'hardhat-deploy/types'
 
-const contractName = 'MyOFTAdapter'
+const contractName = 'QuantozMintBurnOFTAdapter'
 
 const deploy: DeployFunction = async (hre) => {
     const { getNamedAccounts, deployments } = hre
@@ -33,10 +33,10 @@ const deploy: DeployFunction = async (hre) => {
     // }
     const endpointV2Deployment = await hre.deployments.get('EndpointV2')
 
-    // The token address must be defined in hardhat.config.ts
-    // If the token address is not defined, the deployment will log a warning and skip the deployment
-    if (hre.network.config.oftAdapter == null) {
-        console.warn(`oftAdapter not configured on network config, skipping OFTWrapper deployment`)
+    // The configuration must be defined in hardhat.config.ts
+    // If the configuration is not defined, the deployment will log a warning and skip the deployment
+    if (hre.network.config.quantozMintBurnAdapter == null) {
+        console.warn(`quantozMintBurnAdapter not configured on network config, skipping QuantozMintBurnOFTAdapter deployment`)
 
         return
     }
@@ -44,7 +44,8 @@ const deploy: DeployFunction = async (hre) => {
     const { address } = await deploy(contractName, {
         from: deployer,
         args: [
-            hre.network.config.oftAdapter.tokenAddress, // token address
+            hre.network.config.quantozMintBurnAdapter.tokenAddress, // token address
+            hre.network.config.quantozMintBurnAdapter.minterBurnerAddress, // minter/burner contract address
             endpointV2Deployment.address, // LayerZero's EndpointV2 address
             deployer, // owner
         ],
@@ -57,4 +58,4 @@ const deploy: DeployFunction = async (hre) => {
 
 deploy.tags = [contractName]
 
-export default deploy
+export default deploy 
