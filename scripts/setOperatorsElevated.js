@@ -9,7 +9,7 @@ async function main() {
     console.log('Setting operator account:', operator.address);
 
     // ElevatedMinterBurner contract address - replace with your deployed address
-    const elevatedAddress = '0x3E679023066b9F0687BCccE64324957e4017BCe2'; // Replace with your deployed address
+    const elevatedAddress = '0xB232818b57Cd3dA60615759994FEE362525C0Ab8'; // Replace with your deployed address
 
     try {
         const ElevatedMinterBurner = await hre.ethers.getContractFactory('ElevatedMinterBurner');

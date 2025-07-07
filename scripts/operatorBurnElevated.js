@@ -22,8 +22,8 @@ async function main() {
     console.log('Recipient (deployer):', deployer.address);
 
     // ElevatedMinterBurner contract address - replace with your deployed address
-    const elevatedAddress = '0x3E679023066b9F0687BCccE64324957e4017BCe2'; // Replace with your deployed address
-    const tokenAddress = '0xDAe0076498CFA832c11ead54FA79E418403f9A75';
+    const elevatedAddress = '0xB232818b57Cd3dA60615759994FEE362525C0Ab8'; // Replace with your deployed address
+    const tokenAddress = '0x92D18ce12d418A2D0b6D61A60b0A71081feBAd60';
 
     const token = await hre.ethers.getContractAt(ABI, tokenAddress);
     const minterRole = await token.MINTER_ROLE();
