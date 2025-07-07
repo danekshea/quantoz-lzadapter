@@ -9,12 +9,14 @@ import type { OmniPointHardhat } from '@layerzerolabs/toolbox-hardhat'
 const ethereumContract: OmniPointHardhat = {
     eid: EndpointId.ETHEREUM_V2_MAINNET,    
     contractName: 'QuantozAdapter',
+    address: '0x19cB576f86A076F9EaD62488DA735e257c1d691d',
 }
 
 // CHAIN B
 const polygonContract: OmniPointHardhat = {
     eid: EndpointId.POLYGON_V2_MAINNET,
     contractName: 'QuantozMintBurnOFTAdapter',
+    address: '0xaF116d02b4cD91556C6f44Ba67dBf45c3f828949',
 }
 
 
@@ -25,7 +27,7 @@ const EVM_ENFORCED_OPTIONS: OAppEnforcedOption[] = [
     {
         msgType: 1,
         optionType: ExecutorOptionType.LZ_RECEIVE,
-        gas: 80000,
+        gas: 400000,
         value: 0,
     },
 ]
