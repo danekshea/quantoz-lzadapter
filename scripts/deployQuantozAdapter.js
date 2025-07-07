@@ -6,15 +6,15 @@ const hre = require('hardhat');
 async function main() {
     const [deployer] = await hre.ethers.getSigners();
     console.log('Deploying contracts with the account:', deployer.address);
-    // PDUMMY - ????
-    const tokenAddress = '...';
-    const dvnAddress = '...';
+    // QDUMMY - Ethereum mainnet
+    const tokenAddress = '0x5f195d1b998D2964928C422F93130e762Cb1c666';
+    const lzEndpointV2Address = '0x1a44076050125825900e736c501f859c50fE728c';
     
     // Deploy QuantozMintBurnOFTAdapter
     const QuantozOFTAdapter = await hre.ethers.getContractFactory('QuantozAdapter');
     const quantozOFTAdapter = await QuantozOFTAdapter.deploy(
         tokenAddress,
-        dvnAddress,
+        lzEndpointV2Address,
         deployer.address // delegateAddress
     );
     await quantozOFTAdapter.deployed();

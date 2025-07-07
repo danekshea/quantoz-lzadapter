@@ -31,11 +31,11 @@ const accounts: HttpNetworkAccountsUserConfig | undefined = MNEMONIC
       ? [PRIVATE_KEY]
       : undefined
 
-if (accounts == null) {
-    console.warn(
-        'Could not find MNEMONIC or PRIVATE_KEY environment variables. It will not be possible to execute transactions in your example.'
-    )
-}
+// if (accounts == null) {
+//     console.warn(
+//         'Could not find MNEMONIC or PRIVATE_KEY environment variables. It will not be possible to execute transactions in your example.'
+//     )
+// }
 
 const config: HardhatUserConfig = {
     paths: {
@@ -55,14 +55,16 @@ const config: HardhatUserConfig = {
         ],
     },
     networks: {
-        'ethereum-mainnet': {
+        'ethereum': {
             eid: EndpointId.ETHEREUM_V2_MAINNET,
             url: process.env.RPC_URL_ETH_MAINNET || 'https://mainnet.infura.io/v3/f013f7fdf1fe4e35a71f61b0ca46c5f8',
+            chainId: 1,
             accounts,
         },
-        'polygon-mainnet': {
+        'polygon': {
             eid: EndpointId.POLYGON_V2_MAINNET,
             url: process.env.RPC_URL_POL_MAINNET || 'https://polygon-mainnet.infura.io/v3/f013f7fdf1fe4e35a71f61b0ca46c5f8',
+            chainId: 137,
             accounts,
         },
         hardhat: {

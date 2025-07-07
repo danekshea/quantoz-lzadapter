@@ -5,40 +5,18 @@ import { OAppEnforcedOption } from '@layerzerolabs/toolbox-hardhat'
 
 import type { OmniPointHardhat } from '@layerzerolabs/toolbox-hardhat'
 
-/**
- *  WARNING: ONLY 1 OFTAdapter should exist for a given global mesh.
- *  The token address for the adapter should be defined in hardhat.config. This will be used in deployment.
- *
- *  for example:
- *
- *    sepolia: {
- *         eid: EndpointId.SEPOLIA_V2_TESTNET,
- *         url: process.env.RPC_URL_SEPOLIA || 'https://rpc.sepolia.org/',
- *         accounts,
- *         oftAdapter: {
- *             tokenAddress: '0x0', // Set the token address for the OFT adapter
- *         },
- *     },
- */
-const optimismContract: OmniPointHardhat = {
-    eid: EndpointId.OPTSEP_V2_TESTNET,
-    contractName: 'MyOFTAdapter',
+// CHAIN A
+const ethereumContract: OmniPointHardhat = {
+    eid: EndpointId.ETHEREUM_V2_MAINNET,    
+    contractName: 'QuantozAdapter',
 }
 
-const avalancheContract: OmniPointHardhat = {
-    eid: EndpointId.AVALANCHE_V2_TESTNET,
-    contractName: 'MyOFT',
+// CHAIN B
+const polygonContract: OmniPointHardhat = {
+    eid: EndpointId.POLYGON_V2_MAINNET,
+    contractName: 'QuantozMintBurnOFTAdapter',
 }
 
-const arbitrumContract: OmniPointHardhat = {
-    eid: EndpointId.ARBSEP_V2_TESTNET,
-    contractName: 'MyOFT',
-}
-
-// To connect all the above chains to each other, we need the following pathways:
-// Optimism <-> Avalanche
-// Optimism <-> Arbitrum
-// Avalanche <-> Arbitrum
 
 // For this example's simplicity, we will use the same enforced options values for sending to all chains
 // For production, you should ensure `gas` is set to the correct value through profiling the gas usage of calling OFT._lzReceive(...) on the destination chain
@@ -56,22 +34,15 @@ const EVM_ENFORCED_OPTIONS: OAppEnforcedOption[] = [
 // i.e. if you declare A,B there's no need to declare B,A
 const pathways: TwoWayConfig[] = [
     [
-        optimismContract, // Chain A contract
-        avalancheContract, // Chain B contract
+        ethereumContract, // Chain A contract
+        polygonContract, // Chain B contract
         [['LayerZero Labs'], []], // [ requiredDVN[], [ optionalDVN[], threshold ] ]
         [1, 1], // [A to B confirmations, B to A confirmations]
         [EVM_ENFORCED_OPTIONS, EVM_ENFORCED_OPTIONS], // Chain B enforcedOptions, Chain A enforcedOptions
     ],
     [
-        optimismContract, // Chain A contract
-        arbitrumContract, // Chain C contract
-        [['LayerZero Labs'], []], // [ requiredDVN[], [ optionalDVN[], threshold ] ]
-        [1, 1], // [A to B confirmations, B to A confirmations]
-        [EVM_ENFORCED_OPTIONS, EVM_ENFORCED_OPTIONS], // Chain C enforcedOptions, Chain A enforcedOptions
-    ],
-    [
-        avalancheContract, // Chain B contract
-        arbitrumContract, // Chain C contract
+        polygonContract, // Chain B contract
+        ethereumContract, // Chain A contract
         [['LayerZero Labs'], []], // [ requiredDVN[], [ optionalDVN[], threshold ] ]
         [1, 1], // [A to B confirmations, B to A confirmations]
         [EVM_ENFORCED_OPTIONS, EVM_ENFORCED_OPTIONS], // Chain C enforcedOptions, Chain B enforcedOptions
@@ -82,7 +53,7 @@ export default async function () {
     // Generate the connections config based on the pathways
     const connections = await generateConnectionsConfig(pathways)
     return {
-        contracts: [{ contract: optimismContract }, { contract: avalancheContract }, { contract: arbitrumContract }],
+        contracts: [{ contract: ethereumContract }, { contract: polygonContract }],
         connections,
     }
 }
