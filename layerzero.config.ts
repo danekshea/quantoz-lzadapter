@@ -9,14 +9,12 @@ import type { OmniPointHardhat } from '@layerzerolabs/toolbox-hardhat'
 const ethereumContract: OmniPointHardhat = {
     eid: EndpointId.ETHEREUM_V2_MAINNET,    
     contractName: 'QuantozAdapter',
-    address: '0x19cB576f86A076F9EaD62488DA735e257c1d691d',
 }
 
 // CHAIN B
 const polygonContract: OmniPointHardhat = {
     eid: EndpointId.POLYGON_V2_MAINNET,
     contractName: 'QuantozMintBurnOFTAdapter',
-    address: '0xaF116d02b4cD91556C6f44Ba67dBf45c3f828949',
 }
 
 
@@ -41,14 +39,7 @@ const pathways: TwoWayConfig[] = [
         [['LayerZero Labs'], []], // [ requiredDVN[], [ optionalDVN[], threshold ] ]
         [15, 512], // [A to B confirmations, B to A confirmations]
         [EVM_ENFORCED_OPTIONS, EVM_ENFORCED_OPTIONS], // Chain B enforcedOptions, Chain A enforcedOptions
-    ],
-    [
-        polygonContract, // Chain B contract
-        ethereumContract, // Chain A contract
-        [['LayerZero Labs'], []], // [ requiredDVN[], [ optionalDVN[], threshold ] ]
-        [512, 15], // [A to B confirmations, B to A confirmations]
-        [EVM_ENFORCED_OPTIONS, EVM_ENFORCED_OPTIONS], // Chain C enforcedOptions, Chain B enforcedOptions
-    ],
+    ]
 ]
 
 export default async function () {
